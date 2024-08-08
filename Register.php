@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="container d-flex justify-content-center align-items-center" >
-		<form class="d-flex flex-column" style="width: 35%" method="POST" action="login.php">
+		<form class="d-flex flex-column" method="POST" action="login.php">
 		  <div class="mb-3">
 		  	<label class="form-label" id="form-title"> Register</label>
 		  </div>
@@ -40,7 +40,7 @@
 		  </div>
 
 		  <div class="mb-3">
-		    <label class="form-label">Already have an account? <a href="#">login here</a></label>
+		    <label class="form-label">Already have an account? <a href="login.php">login here</a></label>
 		  </div">
 
 	  	  <div class="d-grid gap-2 ">
