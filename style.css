@@ -6,12 +6,14 @@
   box-sizing: border-box;
 }
 
-.container {
+
+/*div .container {
   display: flex;
-  flex-direction: column; /* This is the key change */
-  justify-content-center; /* Adjust as needed for horizontal alignment */
-  align-items-center; /* Adjust as needed for vertical alignment */
+  flex-direction: column;
+  justify-content-center; 
+  align-items-center; 
 }
+*/
 
 .form-control {
     border-radius: 15px;
@@ -27,6 +29,7 @@
 .container-fluid-nav{
 	margin:20px;
 }
+
 form{
 	margin: 150px;
 }
