@@ -6,22 +6,22 @@
   box-sizing: border-box;
 }
 
-
-/*div .container {
+div.container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   justify-content-center; 
-  align-items-center; 
+  align-items-center; /
 }
-*/
 
 .form-control {
     border-radius: 15px;
 }
+
 .btn{
 	background-color: #f4100d;
 	border-radius: 15px;
 }
+
 #form-title{
 	font-size: 30px;
 }
@@ -30,10 +30,15 @@
 	margin:20px;
 }
 
-form{
-	margin: 150px;
+div form{
+	margin: 80px;
+	width: 35%;
 }
 
 #mytitle{
 	background-color: yellow;
+}
+
+.container-fluid-nav{
+	margin:0px;
 }
