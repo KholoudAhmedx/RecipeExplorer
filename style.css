@@ -1,0 +1,36 @@
+
+/*label{	
+	text-align: right;
+}*/
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column; /* This is the key change */
+  justify-content-center; /* Adjust as needed for horizontal alignment */
+  align-items-center; /* Adjust as needed for vertical alignment */
+}
+
+.form-control {
+    border-radius: 15px;
+}
+.btn{
+	background-color: #f4100d;
+	border-radius: 15px;
+}
+#form-title{
+	font-size: 30px;
+}
+
+.container-fluid-nav{
+	margin:20px;
+}
+form{
+	margin: 150px;
+}
+
+#mytitle{
+	background-color: yellow;
+}
