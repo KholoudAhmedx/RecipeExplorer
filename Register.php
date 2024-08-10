@@ -1,3 +1,46 @@
+<?php 
+
+$username = $email= $password= $cpassword = '';
+# List of errors
+$errors = array('username'=>'', 'email'=>'', 'password'=>'', 'cpassword'=>'');
+
+if(isset($_POST['submit']))
+{
+	# Checks
+	if(!empty($_POST['username']))
+	{
+		# Avoid special characters
+		$username = htmlspecialchars($_POST['username']);
+	}
+
+	if(!empty($_POST['email']))
+	{
+		$email = htmlspecialchars($_POST['email']);
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+		{
+			$errors['email'] = 'Invalid email address, please provide a correct one.';
+		}
+	}
+
+
+	if(!empty($_POST['password'] && !empty($_POST['cpassword'])))
+	{
+		$password = htmlspecialchars($_POST['password']);
+		$cpassword = htmlspecialchars($_POST['cpassword']);
+
+		if($password != $cpassword)
+		{
+			$errors['cpassword'] = 'Passwords do not match';
+		}
+		if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password))
+		{
+			$errors['password'] = 'Password must have at least 8 character length with mimimum 1 uppercase, 1 lowercase, 1 number and 1 special characters.\n';
+		}
+
+	}
+}
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -14,29 +57,50 @@
 	</div>
 
 	<div class="container d-flex justify-content-center align-items-center" >
-		<form class="d-flex flex-column" method="POST" action="login.php">
+		<form class="d-flex flex-column" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 		  <div class="mb-3">
-		  	<label class="form-label" id="form-title"> Register</label>
+		  	<label class="form-label " id="form-title"> Register</label>
 		  </div>
 
 		  <div class="mb-3">
 		    <label for="username" class="form-label">Username</label>
-		    <input type="text" class="form-control" id="username" placeholder="Enter your username">
+		    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+		    <?php if(isset($errors['username'])): ?>
+			    <div class="text-danger">
+			    	<?php echo $errors['username']; ?>
+			    </div>
+		    <?php endif; ?>
 		  </div>
 
 		  <div class="mb-3">
 		    <label for="username" class="form-label">Email</label>
-		    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+		    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+		    <?php if(isset($errors['email'])): ?>
+			    <div class="text-danger">
+			    	<?php echo $errors['email']; ?>
+			    </div>
+		    <?php endif; ?>
 		  </div>
 
 		  <div class="mb-3 ">
 		    <label for="password" class="form-label">Password</label>
-		    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+		    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+		    <?php if(isset($errors['password'])): ?>
+		    	<div class="text-danger">
+		    		<?php echo $errors['password']; ?>
+		    	</div>
+		    <?php endif; ?>
 		  </div>
+		  
 
 		  <div class="mb-3">
 		    <label for="cpassword" class="form-label">Confirm password</label>
-		    <input type="password" class="form-control" id="cpassword" placeholder="Confirm your password">
+		    <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm your password" required>
+		    <?php if(isset($errors['cpassword'])): ?>
+		    	<div class="text-danger">
+		    		<?php echo $errors['cpassword']; ?>
+		    	</div>
+		    <?php endif; ?>
 		  </div>
 
 		  <div class="mb-3">
