@@ -1,5 +1,8 @@
 <?php 
 
+# Include the db_config file
+include('db_config/db_connect.php');
+
 $username = $email= $password= $cpassword = '';
 # List of errors
 $errors = array('username'=>'', 'email'=>'', 'password'=>'', 'cpassword'=>'');
@@ -37,6 +40,32 @@ if(isset($_POST['submit']))
 			$errors['password'] = 'Password must have at least 8 character length with mimimum 1 uppercase, 1 lowercase, 1 number and 1 special characters.\n';
 		}
 
+	}
+
+	## Database
+	if(!array_filter($errors))
+	{
+		# Insert data from the user to the database
+		$username = mysqli_real_escape_string($conn, $_POST['username']);
+		$email = mysqli_real_escape_string($conn, $_POST['email']);
+		$password = mysqli_real_escape_string($conn, $_POST['password']);
+		$cpassword = mysqli_real_escape_string($conn, $_POST['cpassword']);
+
+
+		# SQL query
+		$sql = "INSERT INTO Users(username, email, password, cpassword) VALUES('$username', '$email', PASSWORD('$password'), PASSWORD('$cpassword'))";
+
+		# Save to db
+		if(mysqli_query($conn, $sql))
+		{
+			# Success 
+			header('Location: login.php');
+
+		}
+		else
+		{
+			echo 'Query error'.mysqli_error($conn);
+		}
 	}
 }
 
