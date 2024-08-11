@@ -1,4 +1,49 @@
+<?php
 
+include('db_config/db_connect.php');
+
+
+$username = $password = '';
+$errors = array('username'=> '', 'password' =>'', 'login' => '');
+
+if(isset($_POST['submit']))
+{
+	## Validation Checks
+	if(empty($_POST['username']))
+	{
+		$errors['username'] = 'You must provide a username';
+	}
+
+	$username = htmlspecialchars($_POST['username']);
+
+	if(empty($_POST['password']))
+	{
+		$errors['password'] = 'You must provide a password';
+	}
+
+	$password = htmlspecialchars($_POST['password']);
+
+	if(!array_filter($errors))
+	{
+		# SQL query 
+		$sql = "SELECT * FROM Users WHERE username='$username 'AND password=PASSWORD('$password')";
+
+		# Executes the query >> returns either false if no resource existed or the records found
+		$result = mysqli_query($conn, $sql);
+		$count = mysqli_num_rows($result);
+
+		if($count == 1)
+		{
+			header('Location: index.php');
+		}
+		else
+		{
+			$errors['login'] = 'Login failed, please try again';
+		}
+	}
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +58,7 @@
 	</div>
 
 	<div class="container d-flex justify-content-center align-items-center">
-		<form class="d-flex flex-column" method="POST" action="index.php">
+		<form class="d-flex flex-column" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
 		  <div class="mb-3">
 		  	<label class="form-label" id="form-title"> Login to Your Account</label>
@@ -21,13 +66,29 @@
 
 		  <div class="mb-3">
 		    <label for="username" class="form-label">Username</label>
-		    <input type="text" class="form-control" id="username" placeholder="Enter your username">
+		    <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username" >
+		    <?php if(isset($errors['username'])): ?>
+		    	<div class="text-danger">
+		    		<?php echo $errors['username']; ?>
+		    	</div>
+		    <?php endif; ?>
 		  </div>
 
 		  <div class="mb-3 ">
 		    <label for="password" class="form-label">Password</label>
-		    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+		    <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password" >
+		    <?php if(isset($errors['password'])): ?>
+		    	<div class="text-danger">
+		    		<?php echo $errors['password']; ?>
+		    	</div>
+		    <?php endif; ?>
 		  </div>
+
+		  <?php if(isset($errors['login'])): ?>
+		    	<div class="text-danger">
+		    		<?php echo $errors['login']; ?>
+		    	</div>
+		    <?php endif; ?>
 
 		  <div class="mb-3">
 		    <label class="form-label">Don't have an account? <a href="Register.php">Register here</a></label>
