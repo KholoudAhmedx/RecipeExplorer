@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+
+# Secure Redirection
+if(!isset($_SESSION['username']))
+{
+	header('Location:login.php');
+	exit;
+} 	
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
