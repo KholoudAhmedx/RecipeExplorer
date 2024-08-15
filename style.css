@@ -39,6 +39,53 @@ div form{
 	background-color: yellow;
 }
 
-.container-fluid-nav{
-	margin:0px;
+nav.navbar{
+	background-color:#f4100d ;
+}
+nav a.navbar-item:hover{
+	color:white;
+}
+
+nav a.navbar-item{
+	color:white;
+}
+
+nav div a.navbar-brand{
+	color:white !important;
+}
+
+button.navbar-toggler{
+	color:white !important;
+}
+
+li a.nav-link:hover{
+	color: white;
+}
+li a.nav-link{
+	color: white !important;
+}
+
+nav.fixed-bottom{
+	background-color: black !important;
+	top:880px !important;
+}
+
+.mybottomnav{
+	overflow: hidden;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: black;
+}
+
+.mybottomnav a:hover{
+	color:white;
+}
+.mybottomnav a{
+	color: white;
+	margin: 0px 10px;
+}
+
+button.btn{
+	color:white;
 }
