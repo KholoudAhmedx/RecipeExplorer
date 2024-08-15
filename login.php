@@ -2,7 +2,7 @@
 
 include('db_config/db_connect.php');
 
-
+session_start();
 $username = $password = '';
 $errors = array('username'=> '', 'password' =>'', 'login' => '');
 
@@ -34,15 +34,18 @@ if(isset($_POST['submit']))
 
 		if($count == 1)
 		{
+			$_SESSION['username'] = $username;
 			header('Location: index.php');
+			exit();
+
 		}
 		else
 		{
 			$errors['login'] = 'Login failed, please try again';
 		}
+
 	}
 }
-
 ?>
 <!DOCTYPE html>
 <html>
