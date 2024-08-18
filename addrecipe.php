@@ -161,7 +161,6 @@ if(isset($_POST['submit']))
 	<?php include('templates/header.php'); ?>
 </head>
 <body>
-	<!--
 	<nav class="navbar fixed-top">
 		<div class="cotainer-fluid">
 			<h3>
@@ -171,7 +170,6 @@ if(isset($_POST['submit']))
 			</h3>
 		</div>
     </nav>
--->
     <!-- forum-->
     <div class="container d-flex justify-content-center align-items-center">
     	<form class="d-flex flex-column" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
