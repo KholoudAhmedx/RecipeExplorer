@@ -1,12 +1,38 @@
 <?php 
 session_start();
+include('db_config/db_connect.php');
+
+$sql = "SELECT * FROM Food";
+$result = mysqli_query($conn, $sql);
+
+$recipes = mysqli_fetch_all($result, MYSQLI_ASSOC);
+#print_r($recipes);
+
+mysqli_free_result($result);
+
+mysqli_close($conn);
+/*$count = mysqli_num_rows($result);
+if($count > 0)
+{
+  while($row=mysqli_fetch_assoc($result)){
+    $title = $row['title'];
+    $filename = $row['imagefile'];
+    $imageURL ="uploads/".$filename;
+    echo "<img src='$imageURL'>";
+    echo "<h3>$title</h3>";
+  }
+}*/
+
 ?>
 <!DOCTYPE html>
  <html>
  <head>
  	<?php include('templates/header.php'); ?>
+
  </head>
  <body>
+
+
   <nav class="navbar navbar-light fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -17,13 +43,10 @@ session_start();
         Egyption
       </a>
       <a class="navbar-item nav-link" href="#">
-        Japanese
+        Lebanon
       </a>
       <a class="navbar-item nav-link" href="#">
-        Italian 
-      </a>
-      <a class="navbar-item nav-link " href="#">
-        Mexican
+        Moroccon 
       </a>
       
       <!-- To add new recipes you have to be logged in-->
@@ -48,8 +71,27 @@ session_start();
         </ul>
       </div>
     </div>
-  </nav>
+  </nav> 
 
+  <!-- Display images from the database: -->
+  <main>
+    <?php foreach($recipes as $recipe): ?>
+    <div class="card mt-5">
+      <div class="image">
+        <img src="<?php $filename=$recipe['imagefile']; $imageURL="uploads/".$filename; echo $imageURL;?>">
+      </div>
+      <div class="caption">
+        <!--author -->
+        <p class="title"><?php echo htmlspecialchars($recipe['title']); ?></p>
+        <p class="description"><?php echo htmlspecialchars($recipe['description']); ?></p>
+      </div>
+      <div class="card-content right-align">
+        <a class="brand-text nav-link btn" href="details.php?id=<?php echo $recipe['food_id']; ?>">more info</a>
+      </div>
+    </div>
+  <?php endforeach; ?>
+  </main>
+  
   <!-- Bottom navbar -->
   <div class="navbar mybottomnav">
     <a href="home">About us </a>
