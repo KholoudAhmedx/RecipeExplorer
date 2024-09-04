@@ -160,3 +160,12 @@ div.container-fluid {
   margin: 0 auto; /* Center the container horizontally */
   padding: 0px; /* Add a bit of padding for spacing */
 }
+
+#commentsubmit{
+	background-color:red; 
+	color:white;
+	padding:10px 20px;
+	border-radius:5px;
+	border:none;
+	cursor:pointer;
+}
