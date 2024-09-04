@@ -5,6 +5,13 @@ ini_set('display_errors', 1);
 
 include('db_config/db_connect.php');
 
+// Ensure the session persists
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if session is lost
+    header("Location: login.php");
+    exit;
+}	
+
 if(isset($_GET['id']))
 {
 	$recipe_id = mysqli_real_escape_string($conn, $_GET['id']);
