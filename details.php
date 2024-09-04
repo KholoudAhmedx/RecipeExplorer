@@ -2,7 +2,10 @@
 
 include('db_config/db_connect.php');
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+$recipe = '';
 if(isset($_GET['id']))
 {
 	# Get the id of each recipe
@@ -16,7 +19,54 @@ if(isset($_GET['id']))
 	$recipe = mysqli_fetch_assoc($res);
 
 	mysqli_free_result($res);
-	mysqli_close($conn);
+}
+
+# Make sure user is logged in 
+if(!isset($_SESSION['username']))
+{
+	header('Location: login.php');
+}
+
+$comment='';
+
+#echo $_SESSION['user_id'];
+# Insert comments
+if(isset($_POST['submit']))
+{
+	if(!empty($_POST['comment']))
+	{	
+		$usr_id = $_SESSION['user_id'];
+		$rec_id = $_SESSION['recipe_id'];
+		# Input validation
+		$comment = htmlspecialchars($_POST['comment']);
+		$query = "INSERT INTO Comments(user_id, food_id, comment) VALUES('$usr_id', '$rec_id','$comment')";
+		$result = mysqli_query($conn, $query);
+
+		if(!$result)
+		{
+			echo "Error adding comment: " . mysqli_error($conn);
+		}
+
+
+	}
+}
+
+# Display comments of each recipe
+if(isset($_GET['id']))
+{
+	$rec_id = mysqli_real_escape_string($conn, $_GET['id']);
+	$query = "SELECT * FROM Comments WHERE food_id='$rec_id'";
+	$resullt = mysqli_query($conn, $query);
+
+	if(!$resullt)
+	{
+		echo "Error displaying comments " . mysqli_error($conn);
+	}
+
+	$comments = mysqli_fetch_All($resullt, MYSQLI_ASSOC);
+
+	#print_r($comments);
+	
 }
 
 ?>
@@ -31,7 +81,7 @@ if(isset($_GET['id']))
 	<nav class="navbar fixed-top ">
 		<div class="container-fluid">
 			<h3>
-				<a class="navbar-brand" href="#">
+				<a class="navbar-brand" href="index.php">
 					<span class="material-icons"> restaurant</span>RecipeExplorer
 				</a>
 			</h3>
@@ -54,7 +104,9 @@ if(isset($_GET['id']))
 		    </div>
 		</div>
     </nav>
+
 	<div class="container">
+		<!-- Display info for each recipe -->
 		<?php if($recipe): ?>
 			<h1><?php echo htmlspecialchars($recipe['title']); ?> </h1>
 			<p>By Chef: <?php echo htmlspecialchars($recipe['user_id']); ?> </p>
@@ -70,14 +122,34 @@ if(isset($_GET['id']))
 			}
 			?>	
 			</p>
+			 <div class="col-md-12 text-center mt-4">
+		        <a class="brand-text nav-link btn" href="updaterecipe.php?id=<?php echo $recipe['food_id']?>">Update recipe</a>
+		    </div>
 			<h5><strong>Comments:</strong></h5>
-			<textarea class="form-control" id="comments" rows="4" name="comments" placeholder="Add comment"></textarea>
+			<div class="container">
+				<?php foreach($comments as $comment): ?>
+					<!-- Only if you are logged in you can submit comment--> 
+					<h6> <?php 
+
+					$usr_id = $comment['user_id'];
+					$query = "SELECT username FROM Users WHERE id='$usr_id'";
+					$res = mysqli_query($conn, $query);
+					$username = mysqli_fetch_assoc($res);
+					echo htmlspecialchars($username['username']) . ": "; 
+					?> </h6>
+					<p> <?php echo htmlspecialchars($comment['comment']); ?></p>
+				<?php endforeach; ?>
+			</div>
+			<form class="d-flex flex-column" method="POST" style="width:100%; margin:0px; "action="details.php?id=<?php echo $_SESSION['recipe_id']; ?>">
+				<textarea class="form-control" id="comments" rows="4" name="comment" placeholder="Add comment"></textarea>
+				<div class="d-flex justify-content-center mt-4 mb-4">
+			        <button id="commentsubmit" class="btn submit brand-text nav-link" type="submit" name="submit">Submit Comment</button>
+			    </div>
+			</form>
 
 		<?php endif; ?>
 	</div>
-    <div class="col-md-12 text-center mt-4">
-        <a class="brand-text nav-link btn" href="#">Submit Comment</a>
-    </div>
+    
 
 </body>
 </html>
