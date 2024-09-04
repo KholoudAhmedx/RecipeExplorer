@@ -1,5 +1,6 @@
 <?php 
 
+session_start();
 # Include the db_config file
 include('db_config/db_connect.php');
 
@@ -50,10 +51,10 @@ if(isset($_POST['submit']))
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
 		$password = mysqli_real_escape_string($conn, $_POST['password']);
 		$cpassword = mysqli_real_escape_string($conn, $_POST['cpassword']);
-
+		$description=mysqli_real_escape_string($conn, $_POST['desc']);
 
 		# SQL query
-		$sql = "INSERT INTO Users(username, email, password, cpassword) VALUES('$username', '$email', PASSWORD('$password'), PASSWORD('$cpassword'))";
+		$sql = "INSERT INTO Users(username, email, password, cpassword, description) VALUES('$username', '$email', PASSWORD('$password'), PASSWORD('$cpassword'), '$description')";
 
 		# Save to db
 		if(mysqli_query($conn, $sql))
@@ -130,6 +131,11 @@ if(isset($_POST['submit']))
 		    		<?php echo $errors['cpassword']; ?>
 		    	</div>
 		    <?php endif; ?>
+		  </div>
+
+		  <div class="mb-3 ">
+		    <label for="desc" class="form-label">Description</label>
+		    <input type="text" class="form-control" id="desc" name="desc" placeholder="Give a description" required>
 		  </div>
 
 		  <div class="mb-3">
