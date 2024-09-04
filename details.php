@@ -21,11 +21,6 @@ if(isset($_GET['id']))
 	mysqli_free_result($res);
 }
 
-# Make sure user is logged in 
-if(!isset($_SESSION['username']))
-{
-	header('Location: login.php');
-}
 
 $comment='';
 
