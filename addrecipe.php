@@ -11,6 +11,7 @@ if(!isset($_SESSION['username']))
 	exit;
 }
 
+
 $title=$description=$ingredients=$category=$img_file=$author_id='';
 $errors = array('title'=>'', 'description'=>'', 'ingredients'=>'', 'category'=>'', 'img_file'=> '');
 
@@ -97,8 +98,7 @@ if(isset($_POST['submit']))
 			 else {
 	            echo "Error uploading file: " . error_get_last()['message'];
 	        }
-
-		}
+	    }
 		else
 		{
 			$errors['img_file'] = $ext." "."extension is not allowed";
