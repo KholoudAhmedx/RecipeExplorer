@@ -15,6 +15,7 @@ $usersession = $_SESSION['username'];
 $query = "SELECT * FROM Users WHERE username='$usersession'";
 $res = mysqli_query($conn, $query);
 $user=mysqli_fetch_assoc($res);
+
 #print_r($user);
 
 
@@ -60,7 +61,7 @@ $user=mysqli_fetch_assoc($res);
 				<h2><?php echo $user['username']; ?></h2>
 		    	<p>Contact: <?php echo $user['email']; ?></p>
 		    	<p><?php echo $user['description']; ?></p>
-		    	<a class="brand-text nav-link btn" href="update.php?id=<?php echo $user['id']; ?>">Edit profile</a>
+		    	<a class="brand-text nav-link btn" href="editprofile.php?id=<?php echo $user['id']; ?>">Edit profile</a>
 			</div>
 			<div class="col">
 				<!--for showing recipes done by me-->
@@ -90,6 +91,7 @@ $user=mysqli_fetch_assoc($res);
 					      <div class="card-content right-align">
 					        <a class="brand-text nav-link btn" href="details.php?id=<?php echo $recipe['food_id']; ?>">more info</a>
 					        <a class="brand-text nav-link btn" href="delete.php?id=<?php echo $recipe['food_id']; ?>">delete </a>
+					       
 					      </div>
 					    </div>
 					<?php endforeach; ?>
