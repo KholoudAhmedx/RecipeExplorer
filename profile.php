@@ -18,10 +18,7 @@ $user=mysqli_fetch_assoc($res);
 
 #print_r($user);
 
-
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,13 +58,12 @@ $user=mysqli_fetch_assoc($res);
 				<h2><?php echo $user['username']; ?></h2>
 		    	<p>Contact: <?php echo $user['email']; ?></p>
 		    	<p><?php echo $user['description']; ?></p>
-		    	<p><?php $_SESSION['user_id'] = $user['id']; echo $_SESSION['user_id']; ?> </p>
 		    	<a class="brand-text nav-link btn" href="editprofile.php?id=<?php echo $user['id']; ?>">Edit profile</a>
 			</div>
 			<div class="col">
 				<!--for showing recipes done by me-->
 				<main>
-					<h3>Recipes by me:</h3>
+					<h3>Recipes by <?php echo $user['username']; ?>:</h3>
 					<?php
 
 					# Get the details of each recipe made by each user
