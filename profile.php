@@ -81,7 +81,10 @@ $user=mysqli_fetch_assoc($res);
 					<?php foreach($recipes as $recipe): ?>
 						<div class="card mt-5">
 					      <div class="image">
-					        <img src="<?php $filename=$recipe['imagefile']; $imageURL="uploads/".$filename; echo $imageURL;?>">
+					      	<!-- Wrapping the image with a link to the page that shows info of each recipe -->
+					      	<a href="details.php?id=<?php echo $recipe['food_id']; ?>">
+					        	<img src="<?php $filename=$recipe['imagefile']; $imageURL="uploads/".$filename; echo $imageURL;?>">
+					        </a>
 					      </div>
 					      <div class="caption">
 					        <!--author -->
