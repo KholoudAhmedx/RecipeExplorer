@@ -68,6 +68,9 @@ if($count > 0)
 
           <!--Register-->
           <li class="nav-item"><a class="nav-link" href="Register.php">Register </a></li>
+          <li class="nav-item">
+            <button class="btn nav-link" type="btn" onclick="window.location.href='<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>'">My Profile</button>
+          </li>
         </ul>
       </div>
     </div>
