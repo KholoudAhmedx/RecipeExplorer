@@ -44,6 +44,11 @@ if(isset($_POST['submit'])){
         $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
         $updates[] = "Ingredients='$ingredients'";
     }
+    if (!empty($_POST['instrc'])) {
+        $instructions = mysqli_real_escape_string($conn, $_POST['instrc']);
+        $updates[] = "instructions='$instructions'";
+    }
+
 
     if (!empty($_POST['category'])) {
         $category = mysqli_real_escape_string($conn, $_POST['category']);
@@ -137,6 +142,10 @@ if(isset($_POST['submit'])){
 						<div class="mb-3">
 			    			<lable for="ingredients" class="form-lable"><strong>Ingredients</strong></lable>
 			    			<textarea class="form-control" id="ingredients" rows="4" placeholder="List the ingredients" name="ingredients"></textarea>
+			    		</div>
+			    		<div class="mb-3">
+			    			<lable for="instrc" class="form-lable"><strong>Instructions </strong></lable>
+			    			<textarea class="form-control" id="instrc" rows="4" placeholder="Give your instructions" name="instrc"></textarea>
 			    		</div>
 						<div class="mb-3">
 			    			<label for="category" class="form-lable"><strong>Category</strong></label>
