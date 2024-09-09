@@ -131,8 +131,9 @@ if(isset($_POST['submit']))
 
 		if($flag==true)
 		{
-			echo 'my image is updated corrrectly';
+			#echo 'my image is updated corrrectly';
 			$img_file=mysqli_real_escape_string($conn, $_FILES['img']['name']);
+			
 		}
 
 		# SQL
