@@ -69,7 +69,7 @@ if(isset($_POST['submit']))
 
 		  <div class="mb-3">
 		    <label for="username" class="form-label">Username</label>
-		    <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username" >
+		    <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username" required>
 		    <?php if(isset($errors['username'])): ?>
 		    	<div class="text-danger">
 		    		<?php echo $errors['username']; ?>
@@ -79,7 +79,7 @@ if(isset($_POST['submit']))
 
 		  <div class="mb-3 ">
 		    <label for="password" class="form-label">Password</label>
-		    <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password" >
+		    <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password" required >
 		    <?php if(isset($errors['password'])): ?>
 		    	<div class="text-danger">
 		    		<?php echo $errors['password']; ?>
@@ -106,4 +106,20 @@ if(isset($_POST['submit']))
 
 	<?php include('templates/footer.php'); ?>
 </body>
+<script type="text/javascript">
+
+	document.addEventListener("DOMContentLoaded", function() {
+    // Select all required input fields
+    const requiredFields = document.querySelectorAll('input[required], textarea[required]');
+
+    requiredFields.forEach(function(field) {
+        // Get the corresponding label using the 'for' attribute
+        const label = document.querySelector(`label[for="${field.id}"]`);
+        if (label) {
+            // Append an asterisk (*) to the label
+            label.innerHTML += '<span style="color: #FF0000;"> *</span>';
+        }
+    });
+});
+</script>
 </html>
