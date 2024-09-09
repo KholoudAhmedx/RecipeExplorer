@@ -10,6 +10,7 @@ if(isset($_GET['id']))
 {
 	# Get the id of each recipe
 	$id = mysqli_real_escape_string($conn, $_GET['id']);
+	$_SESSION['recipe_id'] = $id;
 	#echo $id;
 
 	$query = "SELECT * FROM Food WHERE food_id='$id'";
@@ -20,23 +21,23 @@ if(isset($_GET['id']))
 
 	mysqli_free_result($res);
 }
+#echo "my session id is: ". $_SESSION['user_id'];
 
-
-$comment='';
-
-#echo $_SESSION['user_id'];
+#echo "my recipe id is: ". $_SESSION['recipe_id'];
 # Insert comments
 if(isset($_POST['submit']))
 {
 	if(!empty($_POST['comment']))
 	{	
+
 		$usr_id = $_SESSION['user_id'];
 		$rec_id = $_SESSION['recipe_id'];
+		#echo "my recipe_id: ". $rec_id;
 		# Input validation
 		$comment = htmlspecialchars($_POST['comment']);
-		$query = "INSERT INTO Comments(user_id, food_id, comment) VALUES('$usr_id', '$rec_id','$comment')";
+		$query = "INSERT INTO Comments(user_id, food_id, comment) VALUES($usr_id, $rec_id,'$comment')";
 		$result = mysqli_query($conn, $query);
-
+		#echo $query;
 		if(!$result)
 		{
 			echo "Error adding comment: " . mysqli_error($conn);
@@ -114,28 +115,28 @@ if(isset($_GET['id']))
 			$ing = explode(',', $set);
 			foreach($ing as $i){
 				echo $i."<br/>";
-			}
+			}	
 			?>	
 			</p>
-			 <div class="col-md-12 text-center mt-4">
-		        <a class="brand-text nav-link btn" href="updaterecipe.php?id=<?php echo $recipe['food_id']?>">Update recipe</a>
-		    </div>
+			<h5><strong> Instructions:</strong> </h5>
+			<p><?php echo htmlspecialchars($recipe['instructions']); ?></p>
 			<h5><strong>Comments:</strong></h5>
-			<div class="container">
-				<?php foreach($comments as $comment): ?>
+			<?php foreach($comments as $comment): ?>
+				<div class="container comment-box">
 					<!-- Only if you are logged in you can submit comment--> 
-					<h6> <?php 
+					<h5> <?php 
 
 					$usr_id = $comment['user_id'];
 					$query = "SELECT username FROM Users WHERE id='$usr_id'";
 					$res = mysqli_query($conn, $query);
 					$username = mysqli_fetch_assoc($res);
-					echo htmlspecialchars($username['username']) . ": "; 
-					?> </h6>
+					echo htmlspecialchars($username['username'])	; 
+					?> </h5>
 					<p> <?php echo htmlspecialchars($comment['comment']); ?></p>
-				<?php endforeach; ?>
-			</div>
-			<form class="d-flex flex-column" method="POST" style="width:100%; margin:0px; "action="details.php?id=<?php echo $_SESSION['recipe_id']; ?>">
+				</div>
+			<?php endforeach; ?>
+				
+			<form class="d-flex flex-column" method="POST" style="width:100%; margin:0px;" action="details.php?id=<?php echo $_SESSION['recipe_id']; ?>">
 				<textarea class="form-control" id="comments" rows="4" name="comment" placeholder="Add comment"></textarea>
 				<div class="d-flex justify-content-center mt-4 mb-4">
 			        <button id="commentsubmit" class="btn submit brand-text nav-link" type="submit" name="submit">Submit Comment</button>
