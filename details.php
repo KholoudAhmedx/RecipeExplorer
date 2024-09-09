@@ -105,7 +105,15 @@ if(isset($_GET['id']))
 		<!-- Display info for each recipe -->
 		<?php if($recipe): ?>
 			<h1><?php echo htmlspecialchars($recipe['title']); ?> </h1>
-			<p>By Chef: <?php echo htmlspecialchars($recipe['user_id']); ?> </p>
+			<p>By Chef: 
+				<?php
+				$iduser = $recipe['user_id'];
+				$query = "SELECT username FROM Users WHERE id='$iduser'";
+				$res = mysqli_query($conn, $query);
+				$user=mysqli_fetch_assoc($res);
+				echo htmlspecialchars($user['username']);
+				?> 
+			</p>
 			<h5> <strong>Description:</strong> </h5>
 			<p><?php echo htmlspecialchars($recipe['description']); ?> </p>
 			<h5><strong> Ingredients:</strong> </h5>
