@@ -169,3 +169,12 @@ div.container-fluid {
 	border:none;
 	cursor:pointer;
 }
+
+div .comment-box{
+	border: 2px solid #ddd;
+	padding:10px;
+	border-radius:20px;
+	margin-bottom: 10px;
+	
+
+}
