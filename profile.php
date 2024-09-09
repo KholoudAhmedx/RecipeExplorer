@@ -61,6 +61,7 @@ $user=mysqli_fetch_assoc($res);
 				<h2><?php echo $user['username']; ?></h2>
 		    	<p>Contact: <?php echo $user['email']; ?></p>
 		    	<p><?php echo $user['description']; ?></p>
+		    	<p><?php $_SESSION['user_id'] = $user['id']; echo $_SESSION['user_id']; ?> </p>
 		    	<a class="brand-text nav-link btn" href="editprofile.php?id=<?php echo $user['id']; ?>">Edit profile</a>
 			</div>
 			<div class="col">
@@ -71,7 +72,6 @@ $user=mysqli_fetch_assoc($res);
 
 					# Get the details of each recipe made by each user
 					$User_id = $user['id'];
-
 					$q = "SELECT * FROM Food WHERE user_id='$User_id'";
 					$r = mysqli_query($conn, $q);
 					$recipes= mysqli_fetch_all($r, MYSQLI_ASSOC);
@@ -89,9 +89,9 @@ $user=mysqli_fetch_assoc($res);
 					        <p class="description"><?php echo htmlspecialchars($recipe['description']); ?></p>
 					      </div>
 					      <div class="card-content right-align">
-					        <a class="brand-text nav-link btn" href="details.php?id=<?php echo $recipe['food_id']; ?>">more info</a>
-					        <a class="brand-text nav-link btn" href="delete.php?id=<?php echo $recipe['food_id']; ?>">delete </a>
-					       
+					        <!--<a class="brand-text nav-link btn" href="details.php?id=<?php echo $recipe['food_id']; ?>">more info</a>-->
+					        <a class="brand-text nav-link btn" href="delete.php?id=<?php echo $recipe['food_id']; ?>">Delete </a>
+					       	<a class="brand-text nav-link btn" href="updaterecipe.php?id=<?php echo $recipe['food_id']?>">Update</a>
 					      </div>
 					    </div>
 					<?php endforeach; ?>
