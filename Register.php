@@ -6,7 +6,18 @@ include('db_config/db_connect.php');
 
 $username = $email= $password= $cpassword = '';
 # List of errors
-$errors = array('username'=>'', 'email'=>'', 'password'=>'', 'cpassword'=>'');
+$errors = array('username'=>'', 'email'=>'', 'password'=>'', 'cpassword'=>'', 'existeduser' =>'', 'existedemail' => '', 'desc_length' => '');
+
+
+# Get stored usernames in the database;
+$sql = "SELECT username, email from Users";
+$res = mysqli_query($conn, $sql);
+$stored_info = mysqli_fetch_all($res, MYSQLI_ASSOC);
+#print_r($stored_info);
+
+# Store in global variable to be seen in all scopes 
+$_SESSION['stored_info'] = $stored_info;
+#print_r($_SESSION['stored_info']);
 
 if(isset($_POST['submit']))
 {
@@ -15,6 +26,18 @@ if(isset($_POST['submit']))
 	{
 		# Avoid special characters
 		$username = htmlspecialchars($_POST['username']);
+		#echo $no_stored_usernames;
+		# submitted username; 
+		foreach($_SESSION['stored_info'] as $singleusername)
+		{
+			if($singleusername['username'] === $username)
+			{
+				$errors['existeduser'] = 'User already exists';
+				break;
+			}
+		}
+
+
 	}
 
 	if(!empty($_POST['email']))
@@ -24,6 +47,17 @@ if(isset($_POST['submit']))
 		{
 			$errors['email'] = 'Invalid email address, please provide a correct one.';
 		}
+
+		# If email already exists 
+		foreach($_SESSION['stored_info'] as $singleusername)
+		{
+			if($singleusername['email'] === $email)
+			{
+				$errors['existedemail'] = 'Email already exists';
+				break;
+			}
+		}
+
 	}
 
 
@@ -43,6 +77,16 @@ if(isset($_POST['submit']))
 
 	}
 
+	if(!empty($_POST['desc']))
+	{
+		$description = htmlspecialchars($_POST['desc']);
+
+		# Check lengtth
+		if(strlen($description) > 255)
+		{
+			$errors['desc_length'] = 'Your description is too long';
+		}
+	}
 	## Database
 	if(!array_filter($errors))
 	{
@@ -100,14 +144,24 @@ if(isset($_POST['submit']))
 			    	<?php echo $errors['username']; ?>
 			    </div>
 		    <?php endif; ?>
+		    <?php if(isset($errors['existeduser'])): ?>
+		    	<div class="text-danger">
+		    		<?php echo $errors['existeduser']; ?>
+		    	</div>
+	    	<?php endif; ?>
 		  </div>
 
 		  <div class="mb-3">
-		    <label for="username" class="form-label">Email</label>
+		    <label for="email" class="form-label">Email</label>
 		    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
 		    <?php if(isset($errors['email'])): ?>
 			    <div class="text-danger">
 			    	<?php echo $errors['email']; ?>
+			    </div>
+		    <?php endif; ?>
+		    <?php if(isset($errors['existedemail'])): ?>
+			    <div class="text-danger">
+			    	<?php echo $errors['existedemail']; ?>
 			    </div>
 		    <?php endif; ?>
 		  </div>
@@ -135,7 +189,12 @@ if(isset($_POST['submit']))
 
 		  <div class="mb-3 ">
 		    <label for="desc" class="form-label">Description</label>
-		    <input type="text" class="form-control" id="desc" name="desc" placeholder="Give a description" required>
+		    <textarea class="form-control" id="desc" rows="4" placeholder="Give a description about yourself" name="desc" required></textarea>
+		    <?php if(isset($errors['desc_length'])): ?>
+		    	<div class="text-danger">
+		    		<?php echo $errors['desc_length']; ?>
+		    	</div>
+		    <?php endif; ?>
 		  </div>
 
 		  <div class="mb-3">
@@ -149,4 +208,21 @@ if(isset($_POST['submit']))
 	</div>
 	<?php include('templates/footer.php'); ?>
 </body>
+
+<script type="text/javascript">
+
+	document.addEventListener("DOMContentLoaded", function() {
+    // Select all required input fields
+    const requiredFields = document.querySelectorAll('input[required], textarea[required]');
+
+    requiredFields.forEach(function(field) {
+        // Get the corresponding label using the 'for' attribute
+        const label = document.querySelector(`label[for="${field.id}"]`);
+        if (label) {
+            // Append an asterisk (*) to the label
+            label.innerHTML += '<span style="color: #FF0000;"> *</span>';
+        }
+    });
+});
+</script>
 </html>
