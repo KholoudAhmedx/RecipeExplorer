@@ -12,8 +12,8 @@ if(!isset($_SESSION['username']))
 }
 
 
-$title=$description=$ingredients=$category=$img_file=$author_id='';
-$errors = array('title'=>'', 'description'=>'', 'ingredients'=>'', 'category'=>'', 'img_file'=> '');
+$title=$description=$ingredients=$instructions=$category=$img_file=$author_id='';
+$errors = array('title'=>'', 'description'=>'', 'ingredients'=>'','instrc' =>'', 'category'=>'', 'img_file'=> '');
 
 $flag = false;
 
@@ -54,7 +54,15 @@ if(isset($_POST['submit']))
 		}
 	}
 
-	
+	if(empty($_POST['instrc']))
+	{
+		$errors['instrc'] = 'You must provide the instructions of making the recipe';
+	}
+	else
+	{
+		$instructions = htmlspecialchars($_POST['instrc']);
+
+	}
 
 	if(empty($_POST['category']))
 	{
@@ -74,7 +82,7 @@ if(isset($_POST['submit']))
 	}
 	else
 	{
-			# Read filename
+		# Read filename
 		$img_file = htmlspecialchars($_FILES['img']['name']);
 
 		# Allow specifc extensions 
@@ -114,6 +122,8 @@ if(isset($_POST['submit']))
 		$title=mysqli_real_escape_string($conn,$_POST['title']);
 		$description=mysqli_real_escape_string($conn, $_POST['desc']);
 		$ingredients=mysqli_real_escape_string($conn, $_POST['ingredients']);
+		$instructions=mysqli_real_escape_string($conn, $_POST['instrc']);
+
 		$category=mysqli_real_escape_string($conn, $_POST['category']);
 		$author = $_SESSION['username'];
 
@@ -137,7 +147,7 @@ if(isset($_POST['submit']))
 		}
 
 		# SQL
-		$sql = "INSERT INTO Food(title,description, Ingredients, category, imagefile,user_id) VALUES('$title', '$description', '$ingredients', '$category', '$img_file', '$author_id')";
+		$sql = "INSERT INTO Food(title,description, Ingredients,instructions, category, imagefile,user_id) VALUES('$title', '$description', '$ingredients','$instructions', '$category', '$img_file', '$author_id')";
 
 		# Save to db
 		if(mysqli_query($conn,$sql))
@@ -201,6 +211,15 @@ if(isset($_POST['submit']))
     			<?php if(isset($errors['ingredients'])): ?>
     				<div class="text-danger">
     					<?php echo $errors['ingredients']; ?>
+    				</div>
+				<?php endif; ?>
+    		</div>
+    		<div class="mb-3">
+    			<lable for="instrc" class="form-lable"><strong>Instructions for making the recipe</strong></lable>
+    			<textarea class="form-control" id="instr" rows="4" placeholder="Give your instructions" name="instrc"></textarea>
+    			<?php if(isset($errors['instrc'])): ?>
+    				<div class="text-danger">
+    					<?php echo $errors['instrc']; ?>
     				</div>
 				<?php endif; ?>
     		</div>
