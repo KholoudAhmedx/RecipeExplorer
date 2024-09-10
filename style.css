@@ -63,26 +63,6 @@ li a.nav-link{
 	color: white !important;
 }
 
-nav.fixed-bottom{
-	background-color: black !important;
-	top:880px !important;
-}
-
-.mybottomnav{
-	overflow: hidden;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	background-color: black;
-}
-
-.mybottomnav a:hover{
-	color:white;
-}
-.mybottomnav a{
-	color: white;
-	margin: 0px 10px;
-}
 
 button.btn{
 	color:white;
