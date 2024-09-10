@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-body{
+body.putmargin{
 	margin-top: 40px;
 }
 
@@ -94,6 +94,7 @@ main{
     flex-wrap: wrap;
     justify-content: space-between;
     margin: auto;
+    margin-top: 20px;
 }
 
 main .card{
@@ -158,3 +159,17 @@ div .comment-box{
 	margin-bottom: 10px;
 
 }
+
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ff0000;
+    color: white;
+    text-align: center;
+    padding-top: 12px;
+}
+
+body {
+    margin-bottom: 60px; /* Adjust this to prevent content from overlapping with the footer */
+}	
