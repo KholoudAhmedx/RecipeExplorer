@@ -44,7 +44,7 @@ if(isset($_POST['submit']))
 	else
 	{
 		$ingredients=htmlspecialchars($_POST['ingredients']);
-		
+
 		if (!preg_match('/^([^,]+(?:, ?[^,]+)*)$/', $ingredients)) {
 	        $errors['ingredients'] = 'Please enter ingredients in the correct format, separated by commas.';
 	    }
@@ -176,15 +176,44 @@ if(isset($_POST['submit']))
 	<?php include('templates/header.php'); ?>
 </head>
 <body>
-	<nav class="navbar fixed-top">
-		<div class="cotainer-fluid">
-			<h3>
-				<a class="navbar-brand" href="#">
-					<span class="material-icons"> restaurant</span>RecipeExplorer-Add a New Recipe
-				</a>
-			</h3>
-		</div>
-    </nav>
+	<nav class="navbar fixed-top navbar-expand-md navbar-light">
+	    <div class="container-xxl">
+	      <a class="navbar-brand" href="index.php">
+	        <span class="material-icons"> restaurant</span>RecipeExplorer-Add a New Recipe
+	      </a>
+
+	      <!-- Toggle button for mobile div -->
+	      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <!-- Button toggler -->
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+
+	      <!-- navbar links -->
+	      <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+	          <ul class="navbar-nav">
+	            <li class="nav-item">
+	              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">My Profile</a> 
+	            </li> 
+	            <li class="nav-item">
+	              <a class="nav-link" href="Register.php">Register </a>
+	            </li>
+	            
+	            <!--Show login/logout buttons based on the status of the user-->
+	            <?php if(isset($_SESSION['username'])): ?>
+	            <li class="nav-item">
+	              <a class="nav-link" href="logout.php">Logout </a>
+	            </li>
+	            <?php else: ?>
+	            <li class="nav-item">
+	              <a class="nav-link" href="login.php">Login </a>
+	            </li>
+	            <?php endif; ?>
+	          </ul>
+	        
+	      </div>
+	    </div>
+	  </nav>
+  
     <!-- forum-->
     <div class="container d-flex justify-content-center align-items-center">
     	<form class="d-flex flex-column" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
