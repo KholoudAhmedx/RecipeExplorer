@@ -66,7 +66,7 @@ if(isset($_POST['submit']))
 
 	if(empty($_POST['category']))
 	{
-		$errors['category']= 'Please provide a category';
+		$errors['category']= 'Please choose a category';
 		#echo $errors['category'];
 	}
 	else{
@@ -225,13 +225,27 @@ if(isset($_POST['submit']))
     		</div>
     		
     		<div class="mb-3">
-    			<label for="category" class="form-lable"><strong>Category</strong></label>
-    			<input type="text" id="category" name="category" class="form-control" placeholder="Enter recipe category">
-    			<?php if(isset($errors['category'])): ?>
-    				<div class="text-danger">
-    					<?php echo $errors['category']; ?>
-    				</div>
-				<?php endif; ?>
+    			<select class="form-select" aria-label="Default select example" name="category">
+    				<option Selected> --Choose the Orign--</option>
+    				<option value="Egyptian">Egyptian</option>
+					<option value="Moroccan">Moroccan</option>
+					<option value="Lebanese">Lebanese</option>
+					<option value="Syrian">Syrian</option>
+					<option value="Tunisian">Tunisian</option>
+					<option value="Algerian">Algerian</option>
+					<option value="Jordanian">Jordanian</option>
+					<option value="Palestinian">Palestinian</option>
+					<option value="Iraqi">Iraqi</option>
+					<option value="Kuwaiti">Kuwaiti</option>
+					<option value="Saudi Arabian">Saudi Arabian</option>
+					<option value="Emirati">Emirati</option>
+					<option value="Omani">Omani</option>
+					<option value="Qatari">Qatari</option>
+					<option value="Bahraini">Bahraini</option>
+					<option value="Yemeni">Yemeni</option>
+					<option value="Libyan">Libyan</option>
+					<option value="Sudanese">Sudanese</option>
+    			</select>
     		</div>
 
     		<div class="mb-3">
