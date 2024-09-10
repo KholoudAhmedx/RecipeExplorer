@@ -21,7 +21,17 @@ if(isset($_GET['id']))
 
 	mysqli_free_result($res);
 }
-#echo "my session id is: ". $_SESSION['user_id'];
+
+# Get the id of the logged in user;
+$user_name=$_SESSION['username'];
+$sql = "SELECT id FROM Users WHERE username='$user_name'";
+$ress= mysqli_query($conn, $sql);
+$id_of_logged_user = mysqli_fetch_assoc($ress);
+#print_r($id_of_logged_user);
+
+$_SESSION['logged_user_id'] = $id_of_logged_user['id'];
+
+
 
 #echo "my recipe id is: ". $_SESSION['recipe_id'];
 # Insert comments
@@ -30,12 +40,14 @@ if(isset($_POST['submit']))
 	if(!empty($_POST['comment']))
 	{	
 
-		$usr_id = $_SESSION['user_id'];
+		# This is only to be able to add it inside another query without needing to escape characters like the ''
+		$globalvar_user_id = $_SESSION['logged_user_id'];
+		#echo $globalvar_user_id;
 		$rec_id = $_SESSION['recipe_id'];
 		#echo "my recipe_id: ". $rec_id;
 		# Input validation
 		$comment = htmlspecialchars($_POST['comment']);
-		$query = "INSERT INTO Comments(user_id, food_id, comment) VALUES($usr_id, $rec_id,'$comment')";
+		$query = "INSERT INTO Comments(user_id, food_id, comment) VALUES($globalvar_user_id, $rec_id,'$comment')";
 		$result = mysqli_query($conn, $query);
 		#echo $query;
 		if(!$result)
@@ -105,7 +117,7 @@ if(isset($_GET['id']))
 		<!-- Display info for each recipe -->
 		<?php if($recipe): ?>
 			<h1><?php echo htmlspecialchars($recipe['title']); ?> </h1>
-			<p>By Chef: 
+			<p>By Chef 
 				<?php
 				$iduser = $recipe['user_id'];
 				$query = "SELECT username FROM Users WHERE id='$iduser'";
@@ -114,9 +126,11 @@ if(isset($_GET['id']))
 				echo htmlspecialchars($user['username']);
 				?> 
 			</p>
-			<h5> <strong>Description:</strong> </h5>
+			<h5><strong>Origin </strong></h5>
+			<p><?php echo htmlspecialchars($recipe['category']); ?> </p>
+			<h5> <strong>Description</strong> </h5>
 			<p><?php echo htmlspecialchars($recipe['description']); ?> </p>
-			<h5><strong> Ingredients:</strong> </h5>
+			<h5><strong> Ingredients</strong> </h5>
 			<p>
 			<?php 
 			$set = htmlspecialchars($recipe['Ingredients']);
@@ -126,9 +140,9 @@ if(isset($_GET['id']))
 			}	
 			?>	
 			</p>
-			<h5><strong> Instructions:</strong> </h5>
+			<h5><strong> Instructions</strong> </h5>
 			<p><?php echo htmlspecialchars($recipe['instructions']); ?></p>
-			<h5><strong>Comments:</strong></h5>
+			<h5><strong>Comments</strong></h5>
 			<?php foreach($comments as $comment): ?>
 				<div class="container comment-box">
 					<!-- Only if you are logged in you can submit comment--> 
