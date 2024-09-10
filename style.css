@@ -7,7 +7,7 @@
 }
 
 body{
-	margin-top: 50px;
+	margin-top: 40px;
 }
 
 div.container {
@@ -45,14 +45,11 @@ div form{
 
 nav.navbar{
 	background-color:#f4100d ;
-}
-nav a.navbar-item:hover{
-	color:white;
+	position: fixed;
+	top:0;
+	width:100%;
 }
 
-nav a.navbar-item{
-	color:white;
-}
 
 nav div a.navbar-brand{
 	color:white !important;
@@ -62,9 +59,6 @@ button.navbar-toggler{
 	color:white !important;
 }
 
-li a.nav-link:hover{
-	color: white;
-}
 li a.nav-link{
 	color: white !important;
 }
@@ -93,7 +87,6 @@ nav.fixed-bottom{
 button.btn{
 	color:white;
 }
-
 
 img{
 	
@@ -136,12 +129,14 @@ main .card{
 main .card .image{
     height: 35%;
     margin-bottom: 20px;
+
 }
 
 main .card .image img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /*border-radius: 15px;*/
 }
 
 main .card .caption{
