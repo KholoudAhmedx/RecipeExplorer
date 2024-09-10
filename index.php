@@ -92,6 +92,8 @@ if($count > 0)
     </div>
   <?php endforeach; ?>
   </main>
-
+  <footer class="fixed-footer">
+    <p>© 2024 RecipeExplorer All rights reserved</p>
+  </footer>
  </body>
  </html>
