@@ -73,7 +73,7 @@ if(isset($_GET['id']))
 	<?php include('templates/header.php'); ?>
 	<title>recipedetails page</title>
 </head>
-<body>
+<body class="putmargin">
 	<nav class="navbar fixed-top ">
 		<div class="container-fluid">
 			<h3>
