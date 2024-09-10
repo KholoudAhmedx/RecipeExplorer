@@ -42,6 +42,7 @@ if($count > 0)
         <!-- Button toggler -->
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <!-- navbar links -->
       <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
           <ul class="navbar-nav">
@@ -91,13 +92,6 @@ if($count > 0)
     </div>
   <?php endforeach; ?>
   </main>
-  
-  <!-- Bottom navbar -->
-  <div class="navbar mybottomnav">
-    <a href="home">About us </a>
-    <a href="home">Contact </a>
-    <a href="home">Privacy policy</a>
-  </div>
 
  </body>
  </html>
