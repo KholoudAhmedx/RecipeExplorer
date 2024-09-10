@@ -25,7 +25,7 @@ $user=mysqli_fetch_assoc($res);
 	<?php include('templates/header.php'); ?>
 	<title>Profile </title>
 </head>
-<body>
+<body class="putmargin">
 	<nav class="navbar fixed-top ">
 		<div class="container-fluid">
 			<h3>
