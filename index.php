@@ -83,12 +83,12 @@ if($count > 0)
       <div class="image">
         <img src="<?php $filename=$recipe['imagefile']; $imageURL="uploads/".$filename; echo $imageURL;?>">
       </div>
-      <div class="caption">
+      <div class="caption ">
         <!--author -->
-        <p class="title"><?php echo htmlspecialchars($recipe['title']); ?></p>
+        <p class="title"><strong><?php echo htmlspecialchars($recipe['title']); ?></strong></p>
         <p class="description"><?php echo htmlspecialchars($recipe['description']); ?></p>
       </div>
-      <div class="card-content right-align">
+      <div class="card-content right-align mt-4">
         <a class="brand-text nav-link btn" href="details.php?id=<?php echo $recipe['food_id']; ?>">more info</a>
       </div>
     </div>
