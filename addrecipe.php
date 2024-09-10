@@ -44,14 +44,18 @@ if(isset($_POST['submit']))
 	else
 	{
 		$ingredients=htmlspecialchars($_POST['ingredients']);
-		if(!preg_match('/^(\s*(\d+(?:\/\d+)?\s*\w+)?\s*[\w\s\-]+(?:\((optional)\))?\s*,\s*)*\s*(\d+(?:\/\d+)?\s*\w+)?\s*[\w\s\-]+(?:\((optional)\))?\s*$/i', $ingredients))
+		
+		if (!preg_match('/^([^,]+(?:, ?[^,]+)*)$/', $ingredients)) {
+	        $errors['ingredients'] = 'Please enter ingredients in the correct format, separated by commas.';
+	    }
+		/*if(!preg_match('/^(\s*(\d+(?:\/\d+)?\s*\w+)?\s*[\w\s\-]+(?:\((optional)\))?\s*,\s*)*\s*(\d+(?:\/\d+)?\s*\w+)?\s*[\w\s\-]+(?:\((optional)\))?\s*$/i', $ingredients))
 		{
 			$errors['ingredients'] = 'Please enter ingredients in the correct format. Each ingredient should be comma-separated and may include:
 			    - A quantity (e.g., "1/2", "2")
 			    - A measurement (e.g., "cup", "tbsp", "g")
 			    - An ingredient name (e.g., "sugar", "flour")
 			    - An optional description or note in parentheses (e.g., "optional", "finely chopped")';
-		}
+		}*/
 	}
 
 	if(empty($_POST['instrc']))
