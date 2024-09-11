@@ -49,9 +49,11 @@ if($count > 0)
             <li class="nav-item">
               <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'addrecipe.php' : 'login.php'; ?>"> Add Recipe</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">Profile</a> 
-            </li> 
+            <?php if(isset($_SESSION['username'])): ?>
+              <li class="nav-item">
+                <a class="nav-link" href="profile.php">Profile</a> 
+              </li> 
+            <?php endif; ?>
             <li class="nav-item">
               <a class="nav-link" href="Register.php">Register </a>
             </li>
