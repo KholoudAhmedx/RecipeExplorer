@@ -47,7 +47,10 @@ if($count > 0)
       <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">My Profile</a> 
+              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'addrecipe.php' : 'login.php'; ?>"> Add Recipe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">Profile</a> 
             </li> 
             <li class="nav-item">
               <a class="nav-link" href="Register.php">Register </a>
@@ -64,9 +67,7 @@ if($count > 0)
             </li>
             <?php endif; ?>
 
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'addrecipe.php' : 'login.php'; ?>"> Add Recipe</a>
-            </li>
+            
           </ul>
         
       </div>
