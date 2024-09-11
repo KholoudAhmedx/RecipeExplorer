@@ -2,8 +2,9 @@
 
 include('db_config/db_connect.php');
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+# For debugging purposes 
+#error_reporting(E_ALL); 
+#ini_set('display_errors', 1);
 
 $recipe = '';
 if(isset($_GET['id']))
@@ -32,10 +33,11 @@ $id_of_logged_user = mysqli_fetch_assoc($ress);
 $_SESSION['logged_user_id'] = $id_of_logged_user['id'];
 
 
-
+$errors=array('login_required' => '');
 #echo "my recipe id is: ". $_SESSION['recipe_id'];
+
 # Insert comments
-if(isset($_POST['submit']))
+if(isset($_POST['submit']) && isset($_SESSION['username']))
 {
 	if(!empty($_POST['comment']))
 	{	
@@ -57,6 +59,9 @@ if(isset($_POST['submit']))
 
 
 	}
+}
+else if(isset($_POST['submit']) && !isset($_SESSION['username'])){
+	$errors['login_required'] = 'You must login in first';
 }
 
 # Display comments of each recipe
@@ -86,32 +91,49 @@ if(isset($_GET['id']))
 	<title>recipedetails page</title>
 </head>
 <body class="putmargin">
-	<nav class="navbar fixed-top ">
-		<div class="container-fluid">
-			<h3>
-				<a class="navbar-brand" href="index.php">
-					<span class="material-icons"> restaurant</span>RecipeExplorer
-				</a>
-			</h3>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-	        	<span class="navbar-toggler-icon"></span>
-	        </button>
-		    <div class="collapse navbar-collapse" id="navbarNav">
-		        <ul class="navbar-nav ms-auto">
-		            <li class="nav-item">
-		                <a class="nav-link" href="index.php">Home</a>
-		            </li>
-		            <li class="nav-item">
-		            	<button class="btn nav-link" type="btn" onclick="window.location.href='<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>'">My Profile</button>
-		            </li>
-		            <li class="nav-item">
-		                <a class="nav-link" href="login.php">Login/Register</a>   
+	<nav class="navbar fixed-top navbar-expand-md navbar-light">
+    <div class="container-xxl">
+      <a class="navbar-brand" href="index.php">
+        <span class="material-icons"> restaurant</span>RecipeExplorer
+      </a>
 
-		            </li>
-		        </ul>
-		    </div>
-		</div>
-    </nav>
+      <!-- Toggle button for mobile div -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Button toggler -->
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- navbar links -->
+      <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+          <ul class="navbar-nav">
+          	<li class="nav-item">
+              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'addrecipe.php' : 'login.php'; ?>"> Add Recipe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">Profile</a> 
+            </li> 
+            <!--Show login/logout buttons based on the status of the user-->
+            <?php if(isset($_SESSION['username'])): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="logout.php">Logout </a>
+            </li>
+            <?php else: ?>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">Login </a>
+            </li>
+            <?php endif; ?>
+            <li class="nav-item">
+              <a class="nav-link" href="Register.php">Register </a>
+            </li>
+            
+            
+
+          </ul>
+        
+      </div>
+    </div>
+  </nav>
+  
 
 	<div class="container">
 		<!-- Display info for each recipe -->
@@ -157,13 +179,20 @@ if(isset($_GET['id']))
 					<p> <?php echo htmlspecialchars($comment['comment']); ?></p>
 				</div>
 			<?php endforeach; ?>
-				
+			
 			<form class="d-flex flex-column" method="POST" style="width:100%; margin:0px;" action="details.php?id=<?php echo $_SESSION['recipe_id']; ?>">
 				<textarea class="form-control" id="comments" rows="4" name="comment" placeholder="Add comment"></textarea>
+				<!-- If user is not logged in and want to add comment -->
+				<?php if(isset($errors['login_required'])): ?>
+			    	<div class="text-danger">
+			    		<?php echo $errors['login_required']; ?>
+			    	</div>
+			    <?php endif; ?>
 				<div class="d-flex justify-content-center mt-4 mb-4">
 			        <button id="commentsubmit" class="btn submit brand-text nav-link" type="submit" name="submit">Submit Comment</button>
 			    </div>
 			</form>
+
 
 		<?php endif; ?>
 	</div>
