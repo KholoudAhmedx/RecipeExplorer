@@ -97,7 +97,7 @@ $user=mysqli_fetch_assoc($res);
 					      </div>
 					      <div class="caption">
 					        <!--author -->
-					        <p class="title"><?php echo htmlspecialchars($recipe['title']); ?></p>
+					        <p class="title"><strong><?php echo htmlspecialchars($recipe['title']); ?></strong></p>
 					        <p class="description"><?php echo htmlspecialchars($recipe['description']); ?></p>
 					      </div>
 					      <div class="card-content right-align">
