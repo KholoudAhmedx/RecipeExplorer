@@ -1,6 +1,6 @@
 <?php 
 
-include('sessionconfig/session_config.php');
+session_start();
 
 // For reporting purposes
 /*error_reporting(E_ALL);

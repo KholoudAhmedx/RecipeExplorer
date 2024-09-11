@@ -4,7 +4,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);*/
 
-include('sessionconfig/session_config.php');
+session_start();
 include('db_config/db_connect.php');
 
 // Ensure the session persists

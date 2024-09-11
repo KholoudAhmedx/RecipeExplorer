@@ -1,6 +1,6 @@
 <?php
 
-include('sessionconfig/session_config.php');
+session_start();
 include('db_config/db_connect.php');
 
 if(!isset($_SESSION['username']))

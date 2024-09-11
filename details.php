@@ -1,7 +1,7 @@
 <?php
 
 include('db_config/db_connect.php');
-include('sessionconfig/session_config.php');
+session_start();
 
 # For debugging purposes 
 #error_reporting(E_ALL); 
