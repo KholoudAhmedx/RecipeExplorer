@@ -26,36 +26,49 @@ $user=mysqli_fetch_assoc($res);
 	<title>Profile </title>
 </head>
 <body class="putmargin">
-	<nav class="navbar fixed-top ">
-		<div class="container-fluid">
-			<h3>
-				<a class="navbar-brand" href="#">
-					<span class="material-icons"> restaurant</span>RecipeExplorer
-				</a>
-			</h3>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-	        	<span class="navbar-toggler-icon"></span>
-	        </button>
-		    <div class="collapse navbar-collapse" id="navbarNav">
-		        <ul class="navbar-nav ms-auto">
-		            <li class="nav-item">
-		                <a class="nav-link" href="index.php">Home</a>
-		            </li>
-		            <li class="nav-item">
-		            	<button class="btn nav-link" type="btn" onclick="window.location.href='<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>'">My Profile</button>
-		            </li>
-		            <li class="nav-item">
-		                <a class="nav-link" href="login.php">Login/Register</a>   
+	<nav class="navbar fixed-top navbar-expand-md navbar-light">
+	    <div class="container-xxl">
+	      <a class="navbar-brand" href="index.php">
+	        <span class="material-icons"> restaurant</span>RecipeExplorer
+	      </a>
 
-		            </li>
-		        </ul>
-		    </div>
-		</div>
-    </nav>
+	      <!-- Toggle button for mobile div -->
+	      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <!-- Button toggler -->
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+
+	      <!-- navbar links -->
+	      <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+	          <ul class="navbar-nav">
+	            <li class="nav-item">
+	              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'addrecipe.php' : 'login.php'; ?>"> Add Recipe</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="Register.php">Register </a>
+	            </li>
+	            
+	            <!--Show login/logout buttons based on the status of the user-->
+	            <?php if(isset($_SESSION['username'])): ?>
+	            <li class="nav-item">
+	              <a class="nav-link" href="logout.php">Logout </a>
+	            </li>
+	            <?php else: ?>
+	            <li class="nav-item">
+	              <a class="nav-link" href="login.php">Login </a>
+	            </li>
+	            <?php endif; ?>
+
+	            
+	          </ul>
+	        
+	      </div>
+	    </div>
+	 </nav>
 	<div class="container">
 		<div class="row">
-			<div class="col">
-				<h2><?php echo $user['username']; ?></h2>
+			<div class="col"  style="margin-top: 20px;">
+				<h2><strong><?php echo "Chef"." ". $user['username']; ?></strong></h2>
 		    	<p>Contact: <?php echo $user['email']; ?></p>
 		    	<p><?php echo $user['description']; ?></p>
 		    	<a class="brand-text nav-link btn" href="editprofile.php?id=<?php echo $user['id']; ?>">Edit profile</a>
@@ -63,7 +76,7 @@ $user=mysqli_fetch_assoc($res);
 			<div class="col">
 				<!--for showing recipes done by me-->
 				<main>
-					<h3>Recipes by <?php echo $user['username']; ?>:</h3>
+					<h3><strong>Recipes by <?php echo $user['username']; ?></strong></h3>
 					<?php
 
 					# Get the details of each recipe made by each user
@@ -89,8 +102,8 @@ $user=mysqli_fetch_assoc($res);
 					      </div>
 					      <div class="card-content right-align">
 					        <!--<a class="brand-text nav-link btn" href="details.php?id=<?php echo $recipe['food_id']; ?>">more info</a>-->
-					        <a class="brand-text nav-link btn" href="delete.php?id=<?php echo $recipe['food_id']; ?>">Delete </a>
-					       	<a class="brand-text nav-link btn" href="updaterecipe.php?id=<?php echo $recipe['food_id']?>">Update</a>
+					        <a class="brand-text nav-link btn mt-4" href="delete.php?id=<?php echo $recipe['food_id']; ?>">Delete </a>
+					       	<a class="brand-text nav-link btn mt-4" href="updaterecipe.php?id=<?php echo $recipe['food_id']?>">Update</a>
 					      </div>
 					    </div>
 					<?php endforeach; ?>
