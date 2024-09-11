@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 include('db_config/db_connect.php');
 
 // Ensure the session persists
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['username'])) {
     // Redirect to login page if session is lost
     header("Location: login.php");
     exit;
@@ -93,32 +93,48 @@ if(isset($_POST['submit'])){
 </head>
 <body style="margin-top: 100px;">
 	<!-- Navbar -->
-	<nav class="navbar fixed-top ">
-		<div class="container-fluid">
-			<h3>
-				<a class="navbar-brand" href="index.php">
-					<span class="material-icons"> restaurant</span>RecipeExplorer
-				</a>
-			</h3>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-	        	<span class="navbar-toggler-icon"></span>
-	        </button>
-		    <div class="collapse navbar-collapse" id="navbarNav">
-		        <ul class="navbar-nav ms-auto">
-		            <li class="nav-item">
-		                <a class="nav-link" href="index.php">Home</a>
-		            </li>
-		            <li class="nav-item">
-		            	<button class="btn nav-link" type="btn" onclick="window.location.href='<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>'">My Profile</button>
-		            </li>
-		            <li class="nav-item">
-		                <a class="nav-link" href="login.php">Login/Register</a>   
+	<nav class="navbar fixed-top navbar-expand-md navbar-light">
+    <div class="container-xxl">
+      <a class="navbar-brand" href="index.php">
+        <span class="material-icons"> restaurant</span>RecipeExplorer
+      </a>
 
-		            </li>
-		        </ul>
-		    </div>
-		</div>
-    </nav>
+      <!-- Toggle button for mobile div -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Button toggler -->
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- navbar links -->
+      <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'addrecipe.php' : 'login.php'; ?>"> Add Recipe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">Profile</a> 
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" href="Register.php">Register </a>
+            </li>
+            
+            <!--Show login/logout buttons based on the status of the user-->
+            <?php if(isset($_SESSION['username'])): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="logout.php">Logout </a>
+            </li>
+            <?php else: ?>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">Login </a>
+            </li>
+            <?php endif; ?>
+
+            
+          </ul>
+        
+      </div>
+    </div>
+  </nav>
 	<!--form-->
 	<div class="container">
 		<div class="row">
@@ -129,14 +145,14 @@ if(isset($_POST['submit'])){
 				<div class="container d-flex justify-content-center align-items-center" >
 					<form class="d-flex flex-column" method="POST" style="width:100%; margin:0px; "action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 						<div class="mb-3">
-							<label><strong>Update Your Recipe</strong></label>
+							<h3><strong>Update Your Recipe</strong></h3>
 						</div>
 						<div class="mb-3">
-							<label for ="title">Recipe Title</label>
+							<label for ="title"><strong>Recipe Title</strong></label>
 							<input type="text" name="title" class="form-control" id="title" placeholder="Enter a new title">
 						</div>
 						<div class="mb-3">
-							<label for="desc">Description</label>
+							<label for="desc"><strong>Description</strong></label>
 							<textarea  name="desc" class="form-control" rows="4" id="desc" placeholder="Enter new description"></textarea>
 						</div>
 						<div class="mb-3">
