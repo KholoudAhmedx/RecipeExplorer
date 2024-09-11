@@ -1,7 +1,6 @@
 <?php
 
-session_start();
-
+include('sessionconfig/session_config.php');
 include('db_config/db_connect.php');
 
 # Secure Redirection
@@ -10,7 +9,6 @@ if(!isset($_SESSION['username']))
 	header('Location:login.php');
 	exit;
 }
-
 
 $title=$description=$ingredients=$instructions=$category=$img_file=$author_id='';
 $errors = array('title'=>'', 'description'=>'', 'ingredients'=>'','instrc' =>'', 'category'=>'', 'img_file'=> '');
@@ -48,14 +46,6 @@ if(isset($_POST['submit']))
 		if (!preg_match('/^([^,]+(?:, ?[^,]+)*)$/', $ingredients)) {
 	        $errors['ingredients'] = 'Please enter ingredients in the correct format, separated by commas.';
 	    }
-		/*if(!preg_match('/^(\s*(\d+(?:\/\d+)?\s*\w+)?\s*[\w\s\-]+(?:\((optional)\))?\s*,\s*)*\s*(\d+(?:\/\d+)?\s*\w+)?\s*[\w\s\-]+(?:\((optional)\))?\s*$/i', $ingredients))
-		{
-			$errors['ingredients'] = 'Please enter ingredients in the correct format. Each ingredient should be comma-separated and may include:
-			    - A quantity (e.g., "1/2", "2")
-			    - A measurement (e.g., "cup", "tbsp", "g")
-			    - An ingredient name (e.g., "sugar", "flour")
-			    - An optional description or note in parentheses (e.g., "optional", "finely chopped")';
-		}*/
 	}
 
 	if(empty($_POST['instrc']))
@@ -65,24 +55,19 @@ if(isset($_POST['submit']))
 	else
 	{
 		$instructions = htmlspecialchars($_POST['instrc']);
-
 	}
 
 	if(empty($_POST['category']))
 	{
 		$errors['category']= 'Please choose a category';
-		#echo $errors['category'];
 	}
 	else{
-
 		$category= htmlspecialchars($_POST['category']);
-
 	}
 
 	if(empty($_FILES['img']['name']))
 	{
 		$errors['img_file'] = 'Please provide an image for the recipe';
-		#echo $errors['img_file'];
 	}
 	else
 	{
@@ -175,7 +160,7 @@ if(isset($_POST['submit']))
 <head>
 	<?php include('templates/header.php'); ?>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 	<nav class="navbar fixed-top navbar-expand-md navbar-light">
 	    <div class="container-xxl">
 	      <a class="navbar-brand" href="index.php">
@@ -258,8 +243,8 @@ if(isset($_POST['submit']))
     		</div>
     		
     		<div class="mb-3">
-    			<select class="form-select" aria-label="Default select example" name="category">
-    				<option Selected> --Choose the Orign--</option>
+    			<select class="form-select" aria-label="Default select example" name="category" required>
+    				<option value=""> --Choose the Orign--</option>
     				<option value="Egyptian">Egyptian</option>
 					<option value="Moroccan">Moroccan</option>
 					<option value="Lebanese">Lebanese</option>
@@ -299,5 +284,6 @@ if(isset($_POST['submit']))
     		</div>
     	</form>
     </div>
+    <?php include('templates/footer2.php'); ?>
 </body>
 </html>
