@@ -1,8 +1,10 @@
 <?php
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
+/*
+error_reporting(E_ALL);
+ini_set('display_errors', 1);*/
+
+include('sessionconfig/session_config.php');
 include('db_config/db_connect.php');
 
 // Ensure the session persists
@@ -91,7 +93,7 @@ if(isset($_POST['submit'])){
 	<?php include('templates/header.php'); ?>
 	<title>Edit Profile</title>
 </head>
-<body style="margin-top: 100px;">
+<body class="d-flex flex-column min-vh-100" style="margin-top: 100px;">
 	<!-- Navbar -->
 	<nav class="navbar fixed-top navbar-expand-md navbar-light">
     <div class="container-xxl">
@@ -203,6 +205,6 @@ if(isset($_POST['submit'])){
 			</div>
 		</div>
 	</div>
-	
+	<?php include('templates/footer2.php'); ?>
 </body>
 </html>

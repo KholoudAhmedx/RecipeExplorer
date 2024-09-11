@@ -1,28 +1,15 @@
 <?php 
-session_start();
+
+include('sessionconfig/session_config.php');
 include('db_config/db_connect.php');
 
 $sql = "SELECT * FROM Food";
 $result = mysqli_query($conn, $sql);
 
 $recipes = mysqli_fetch_all($result, MYSQLI_ASSOC);
-#print_r($recipes);
 
 mysqli_free_result($result);
-
 mysqli_close($conn);
-/*$count = mysqli_num_rows($result);
-if($count > 0)
-{
-  while($row=mysqli_fetch_assoc($result)){
-    $title = $row['title'];
-    $filename = $row['imagefile'];
-    $imageURL ="uploads/".$filename;
-    echo "<img src='$imageURL'>";
-    echo "<h3>$title</h3>";
-  }
-}*/
-
 ?>
 <!DOCTYPE html>
  <html>
@@ -30,7 +17,7 @@ if($count > 0)
  	<?php include('templates/header.php'); ?>
 
  </head>
- <body>
+ <body class="d-flex flex-column min-vh-100">
   <nav class="navbar fixed-top navbar-expand-md navbar-light">
     <div class="container-xxl">
       <a class="navbar-brand" href="index.php">
@@ -95,8 +82,6 @@ if($count > 0)
     </div>
   <?php endforeach; ?>
   </main>
-  <footer class="fixed-footer">
-    <p>© 2024 RecipeExplorer All rights reserved</p>
-  </footer>
- </body>
- </html>
+  <?php include('templates/footer2.php'); ?>
+  </body>
+</html>

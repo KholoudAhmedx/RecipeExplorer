@@ -1,7 +1,8 @@
 <?php
 
 include('db_config/db_connect.php');
-session_start();
+include('sessionconfig/session_config.php');
+
 # For debugging purposes 
 #error_reporting(E_ALL); 
 #ini_set('display_errors', 1);
@@ -90,7 +91,7 @@ if(isset($_GET['id']))
 	<?php include('templates/header.php'); ?>
 	<title>recipedetails page</title>
 </head>
-<body class="putmargin">
+<body class="putmargin d-flex flex-column min-vh-100">
 	<nav class="navbar fixed-top navbar-expand-md navbar-light">
     <div class="container-xxl">
       <a class="navbar-brand" href="index.php">
@@ -196,7 +197,7 @@ if(isset($_GET['id']))
 
 		<?php endif; ?>
 	</div>
-    
+  <?php include('templates/footer2.php'); ?> 
 
 </body>
 </html>

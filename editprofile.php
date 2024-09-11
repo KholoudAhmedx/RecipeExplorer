@@ -1,6 +1,6 @@
 <?php 
 
-session_start();
+include('sessionconfig/session_config.php');
 
 // For reporting purposes
 /*error_reporting(E_ALL);
@@ -93,7 +93,7 @@ mysqli_close($conn);
 	<?php include('templates/header.php'); ?>
 	<title>Edit Profile</title>
 </head>
-<body style="margin-top: 100px;">
+<body class="d-flex flex-column min-vh-100" style="margin-top: 100px;">
 	<!-- Navbar -->
 	<!-- Navbar -->
 	<nav class="navbar fixed-top navbar-expand-md navbar-light">
@@ -172,6 +172,6 @@ mysqli_close($conn);
 			</div>
 		</div>
 	</div>
-	
+    <?php include('templates/footer2.php'); ?>
 </body>
 </html>

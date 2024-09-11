@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+include('sessionconfig/session_config.php');
 include('db_config/db_connect.php');
 
 if(!isset($_SESSION['username']))
@@ -25,7 +25,7 @@ $user=mysqli_fetch_assoc($res);
 	<?php include('templates/header.php'); ?>
 	<title>Profile </title>
 </head>
-<body class="putmargin">
+<body class="putmargin d-flex flex-column min-vh-100">
 	<nav class="navbar fixed-top navbar-expand-md navbar-light">
 	    <div class="container-xxl">
 	      <a class="navbar-brand" href="index.php">
@@ -112,8 +112,6 @@ $user=mysqli_fetch_assoc($res);
 			</div>
 		</div>
 	</div>
-    <div class="container">
-    	
-    </div>
+   <?php include('templates/footer2.php'); ?>
 </body>
 </html>
