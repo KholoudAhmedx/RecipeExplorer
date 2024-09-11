@@ -192,7 +192,7 @@ if(isset($_POST['submit']))
 	      <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
 	          <ul class="navbar-nav">
 	            <li class="nav-item">
-	              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">My Profile</a> 
+	              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">Profile</a> 
 	            </li> 
 	            <li class="nav-item">
 	              <a class="nav-link" href="Register.php">Register </a>
