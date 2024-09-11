@@ -71,7 +71,7 @@ $user=mysqli_fetch_assoc($res);
 				<h2><strong><?php echo "Chef"." ". $user['username']; ?></strong></h2>
 		    	<p>Contact: <?php echo $user['email']; ?></p>
 		    	<p><?php echo $user['description']; ?></p>
-		    	<a class="brand-text nav-link btn" href="editprofile.php?id=<?php echo $user['id']; ?>">Edit profile</a>
+		    	<a class="brand-text nav-link btn" href="editprofile.php">Edit profile</a>
 			</div>
 			<div class="col">
 				<!--for showing recipes done by me-->
