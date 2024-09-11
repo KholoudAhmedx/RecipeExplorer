@@ -1,9 +1,12 @@
 <?php 
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
+session_start();
+
+// For reporting purposes
+/*error_reporting(E_ALL);
+ini_set('display_errors', 1);*/
 include('db_config/db_connect.php');
+
 $username=$email=$password=$cpassword=$description=' ';
 
 // Ensure the session persists >> can only be accessible for logged in users 
@@ -13,27 +16,27 @@ if (!isset($_SESSION['username'])) {
     exit;
 }	
 
-if(isset($_GET['id']))
-{
-    $user_id = mysqli_real_escape_string($conn, $_GET['id']);
-    $query = "SELECT * FROM Users WHERE id='$user_id'";
-    $res = mysqli_query($conn, $query);
-    $user = mysqli_fetch_assoc($res);
-    $_SESSION['user_id'] = $user_id; // Store user_id in session
-    mysqli_free_result($res);
-    // No need to close the connection here
-}
+# Get the id of the logged in user;
+$user_name=$_SESSION['username'];
+$sql = "SELECT id FROM Users WHERE username='$user_name'";
+$ress= mysqli_query($conn, $sql);
+$id_of_logged_user = mysqli_fetch_assoc($ress);
+#print_r($id_of_logged_user);
 
-// Ensure the session persists
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to login page if session is lost
-    header("Location: login.php");
-    exit;
-}
+# Save the id of the user in a global variable 
+$_SESSION['logged_user_id'] = $id_of_logged_user['id'];
+$usr_id = $_SESSION['logged_user_id'];
+$user_id = mysqli_real_escape_string($conn, $usr_id);
+$query = "SELECT * FROM Users WHERE id='$user_id'";
+$res = mysqli_query($conn, $query);
+$user = mysqli_fetch_assoc($res);
+mysqli_free_result($res);
 
+
+// When submit button is clicked
 if (isset($_POST['submit'])) {
     // Get the user ID from the session
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['logged_user_id'];
 
     // Initialize an array to hold the fields to be updated
     $updates = [];
@@ -81,9 +84,9 @@ if (isset($_POST['submit'])) {
     $_SESSION['username'] = $username;
 }
 
-// Close the database connection
 mysqli_close($conn);
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,9 +130,7 @@ mysqli_close($conn);
             <li class="nav-item">
               <a class="nav-link" href="login.php">Login </a>
             </li>
-            <?php endif; ?>
-
-            
+            <?php endif; ?>     
           </ul>
         
       </div>
@@ -164,8 +165,6 @@ mysqli_close($conn);
 							<textarea  name="desc" class="form-control" rows="4" id="desc" placeholder="Enter new description"><?php echo htmlspecialchars($user['description']); ?></textarea>
 						</div>
 						<div class="d-grid gap-2 ">
-							<!-- Read the user id from the POST request to be seen inside the if condition that checks if the form is submitted-->
-							<input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
 					  	  	<button class="btn submit" type="button submit" name="submit">Submit</button>
 					  	</div>
 					</form>
