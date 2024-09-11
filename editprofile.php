@@ -6,6 +6,12 @@ ini_set('display_errors', 1);
 include('db_config/db_connect.php');
 $username=$email=$password=$cpassword=$description=' ';
 
+// Ensure the session persists >> can only be accessible for logged in users 
+if (!isset($_SESSION['username'])) {
+    // Redirect to login page if session is lost
+    header("Location: login.php");
+    exit;
+}	
 
 if(isset($_GET['id']))
 {
@@ -86,32 +92,49 @@ mysqli_close($conn);
 </head>
 <body style="margin-top: 100px;">
 	<!-- Navbar -->
-	<nav class="navbar fixed-top ">
-		<div class="container-fluid">
-			<h3>
-				<a class="navbar-brand" href="#">
-					<span class="material-icons"> restaurant</span>RecipeExplorer
-				</a>
-			</h3>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-	        	<span class="navbar-toggler-icon"></span>
-	        </button>
-		    <div class="collapse navbar-collapse" id="navbarNav">
-		        <ul class="navbar-nav ms-auto">
-		            <li class="nav-item">
-		                <a class="nav-link" href="index.php">Home</a>
-		            </li>
-		            <li class="nav-item">
-		            	<button class="btn nav-link" type="btn" onclick="window.location.href='<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>'">My Profile</button>
-		            </li>
-		            <li class="nav-item">
-		                <a class="nav-link" href="login.php">Login/Register</a>   
+	<!-- Navbar -->
+	<nav class="navbar fixed-top navbar-expand-md navbar-light">
+    <div class="container-xxl">
+      <a class="navbar-brand" href="index.php">
+        <span class="material-icons"> restaurant</span>RecipeExplorer
+      </a>
 
-		            </li>
-		        </ul>
-		    </div>
-		</div>
-    </nav>
+      <!-- Toggle button for mobile div -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Button toggler -->
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- navbar links -->
+      <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'addrecipe.php' : 'login.php'; ?>"> Add Recipe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>">Profile</a> 
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" href="Register.php">Register </a>
+            </li>
+            
+            <!--Show login/logout buttons based on the status of the user-->
+            <?php if(isset($_SESSION['username'])): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="logout.php">Logout </a>
+            </li>
+            <?php else: ?>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">Login </a>
+            </li>
+            <?php endif; ?>
+
+            
+          </ul>
+        
+      </div>
+    </div>
+  </nav>
 	<!--form-->
 	<div class="container">
 		<div class="row">
@@ -134,7 +157,7 @@ mysqli_close($conn);
 						</div>
 						<div class="mb-3">
 							<label for="pass">Password</label>
-							<input type="password" name="pass" class="form-control" id="pass" placeholder="Enter new password" value="<?php echo $user['password']; ?>">
+							<input type="password" name="pass" class="form-control" id="pass" placeholder="Enter new password">
 						</div>
 						<div class="mb-3">
 							<label for="desc">Description</label>
