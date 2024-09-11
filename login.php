@@ -1,7 +1,7 @@
 <?php
 
+include('db_config/db_connect.php');
 session_start();
-include('sessionconfig/session_config.php');
 $username = $password = '';
 $errors = array('username'=> '', 'password' =>'', 'login' => '');
 
