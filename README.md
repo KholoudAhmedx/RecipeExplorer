@@ -1,5 +1,5 @@
 # 🍽️🔍RecipeExplorer
-## **Description:**
+## Description
 RecipeExplorer is a platform for sharing and discovering recipes from around the world, with a focus on the Arabian dishes.
 ## Table of Contents
 - Getting Started
@@ -12,11 +12,15 @@ RecipeExplorer is a platform for sharing and discovering recipes from around the
 - Features
 - Contributing
 - Contact
+## Getting Started 
+
 ## Demo
 [Demo Link](https://drive.google.com/file/d/1QSmzeIfzx7iYt1sn4J-RUxib82Q8zG2w/view?usp=drive_link)
 
 ## Built With
-
+- **Backend:** PHP
+- **Database:** MySQL (managed via phpMyAdmin)
+- **Frontend:** HTML, CSS, Bootstrap v5
 ## Features 
 
 ## Contributing 
