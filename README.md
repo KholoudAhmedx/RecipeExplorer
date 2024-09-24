@@ -7,10 +7,17 @@ RecipeExplorer is a platform for sharing and discovering recipes from around the
   - Installation
   - Execution
 - Usage
+- Demo
 - Built With
 - Features
 - Contributing
 - Contact
+## Demo
+
+## Built With
+
+## Features 
+
 ## Contributing 
 Contributions are welcome! If you'd like to contribute, please follow these steps:
 1. Fork the repository.
