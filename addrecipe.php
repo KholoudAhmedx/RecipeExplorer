@@ -98,7 +98,7 @@ if(isset($_POST['submit']))
 	    }
 		else
 		{
-			$errors['img_file'] = $ext." "."extension is not allowed";
+			$errors['img_file'] = $ext." "."Extension is not allowed";
 			#echo $errors['allowed_ext'];
 		}
 	}
@@ -231,6 +231,9 @@ if(isset($_POST['submit']))
     					<?php echo $errors['ingredients']; ?>
     				</div>
 				<?php endif; ?>
+				<div style="font-size: 0.9em; color: #666; margin-top: 5px;">
+				    <strong>Note:</strong> Please separate ingredients with commas for better readability.
+				</div>
     		</div>
     		<div class="mb-3">
     			<lable for="instrc" class="form-lable"><strong>Instructions for making the recipe</strong></lable>
@@ -277,6 +280,9 @@ if(isset($_POST['submit']))
     					<?php echo $errors['img_file']; ?>
     				</div>
 				<?php endif; ?>
+				<div style="font-size: 0.9em; color: #666; margin-top: 5px;">
+				    <strong>Note:</strong> Allowed extenstions are .jpg .jpeg .png
+				</div>
     		</div>
 
     		<div class="d-grid gap-2">
