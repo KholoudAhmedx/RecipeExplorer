@@ -40,7 +40,7 @@ if(isset($_POST['submit']))
 		}
 		else
 		{
-			$errors['login'] = 'Login failed, please try again';
+			$errors['login'] = 'Login failed, username or password is not correct';
 		}
 
 	}
