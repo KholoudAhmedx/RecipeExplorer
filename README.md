@@ -13,7 +13,11 @@ RecipeExplorer is a platform for sharing and discovering recipes from around the
 - Contributing
 - Contact
 ## Getting Started 
-
+## How to Install 
+- Install `xampp` which is a cross platform to run web server and mysql server via this command `./Downloads/xampp-linux-x64-8.2.12-0-installer.run
+` with root privileges.
+- `Xampp` files will be downloaded in `/opt/lampp` directory and to run it, move to this directory and run `sudo ./manager-linux-x64.run`.
+- Start both services `MySQL Database` and `Apache Web Server`. And make sure no other instances of these services are already running.
 ## Demo
 [Demo Link](https://drive.google.com/file/d/1QSmzeIfzx7iYt1sn4J-RUxib82Q8zG2w/view?usp=drive_link)
 
